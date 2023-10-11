@@ -49,7 +49,7 @@ generateCode := {
        |                               -p apiPackage=it.pagopa.${packagePrefix.value}.api
        |                               -p dateLibrary=java8
        |                               -p entityStrictnessTimeout=15
-       |                               -o generated""".stripMargin
+       |                               -o services/${projectName.value}/generated""".stripMargin
   ).!!
 
   Process(
@@ -61,7 +61,7 @@ generateCode := {
        |                               -p modelPackage=it.pagopa.${packagePrefix.value}.client.model
        |                               -p apiPackage=it.pagopa.${packagePrefix.value}.client.api
        |                               -p dateLibrary=java8
-       |                               -o client""".stripMargin
+       |                               -o services/${projectName.value}/client""".stripMargin
   ).!!
 
 }
