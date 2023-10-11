@@ -1,5 +1,5 @@
 target/
-*/target/
+**/target/
 .idea
 */project/project
 project/target
@@ -10,4 +10,7 @@ metals.sbt
 .bsp
 .openapi-generator
 .DS_Store
-*/client/project/build.properties
+**/client/project/build.properties
+**/generated/src/
+**/client/src/
+.env
