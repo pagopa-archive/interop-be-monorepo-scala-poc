@@ -1,0 +1,13 @@
+target/
+*/target/
+.idea
+*/project/project
+project/target
+.vscode
+metals.sbt
+.bloop
+.metals
+.bsp
+.openapi-generator
+.DS_Store
+*/client/project/build.properties
