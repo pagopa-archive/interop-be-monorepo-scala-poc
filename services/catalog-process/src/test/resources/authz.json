@@ -1,0 +1,66 @@
+{
+  "endpoints": [
+    { "route": "createEService", "roles": ["admin", "api"], "verb": "POST" },
+    {
+      "route": "createEServiceDocument",
+      "roles": ["admin", "api"],
+      "verb": "POST"
+    },
+    {
+      "route": "getEServiceById",
+      "roles": ["admin", "api", "security", "m2m", "support"],
+      "verb": "GET"
+    },
+    {
+      "route": "getEServices",
+      "roles": ["admin", "api", "security", "m2m", "support"],
+      "verb": "GET"
+    },
+    {
+      "route": "getEServiceDocumentById",
+      "roles": ["admin", "api", "security", "m2m", "support"],
+      "verb": "GET"
+    },
+    {
+      "route": "getEServiceConsumers",
+      "roles": ["admin", "api", "security", "m2m", "support"],
+      "verb": "GET"
+    },
+    { "route": "deleteDraft", "roles": ["admin", "api"], "verb": "DELETE" },
+    {
+      "route": "updateDraftDescriptor",
+      "roles": ["admin", "api"],
+      "verb": "PUT"
+    },
+    { "route": "updateEServiceById", "roles": ["admin", "api"], "verb": "PUT" },
+    { "route": "createDescriptor", "roles": ["admin", "api"], "verb": "POST" },
+    {
+      "route": "deleteEServiceDocumentById",
+      "roles": ["admin", "api"],
+      "verb": "DELETE"
+    },
+    { "route": "archiveDescriptor", "roles": ["internal"], "verb": "POST" },
+    {
+      "route": "deprecateDescriptor",
+      "roles": ["admin", "api"],
+      "verb": "POST"
+    },
+    { "route": "suspendDescriptor", "roles": ["admin", "api"], "verb": "POST" },
+    { "route": "draftDescriptor", "roles": ["admin", "api"], "verb": "POST" },
+    { "route": "publishDescriptor", "roles": ["admin", "api"], "verb": "POST" },
+    {
+      "route": "updateEServiceDocumentById",
+      "roles": ["admin", "api"],
+      "verb": "POST"
+    },
+    {
+      "route": "cloneEServiceByDescriptor",
+      "roles": ["admin", "api"],
+      "verb": "POST"
+    },
+    { "route": "deleteEService", "roles": ["admin", "api"], "verb": "DELETE" },
+    { "route": "createRiskAnalysis", "roles": ["admin", "api"], "verb": "POST" },
+    { "route": "updateRiskAnalysis", "roles": ["admin", "api"], "verb": "POST" },
+    { "route": "deleteRiskAnalysis", "roles": ["admin", "api"], "verb": "DELETE" }
+  ]
+}
