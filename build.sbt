@@ -1,7 +1,9 @@
-import CommonsConfigs.utils
 //import ProjectSettings.ProjectFrom
 
 //import modules.ComputeVersion
+//import OpenApiTools._
+
+import OpenApiTools._
 
 ThisBuild / scalaVersion      := "2.13.10"
 ThisBuild / organization      := "it.pagopa"
@@ -12,138 +14,22 @@ ThisBuild / githubOwner       := "pagopa"
 //ThisBuild / githubRepository  := "interop-commons"
 ThisBuild / resolvers += Resolver.githubPackages("pagopa")
 
-//val fileManagerModuleName   = "file-manager"
-//val mailManagerModuleName   = "mail-manager"
-//val jwtModuleName           = "jwt"
-//val signerModuleName        = "signer"
-val utilsModuleName         = "commons/utils"
-//val queueModuleName         = "queue-manager"
-//val cqrsModuleName          = "cqrs"
-//val rateLimiterModuleName   = "rate-limiter"
-//val parserModuleName        = "parser"
-//val riskAnalysisModuleName  = "risk-analysis"
-//
-//cleanFiles += baseDirectory.value / cqrsModuleName / "target"
-//cleanFiles += baseDirectory.value / fileManagerModuleName / "target"
-//cleanFiles += baseDirectory.value / mailManagerModuleName / "target"
-//cleanFiles += baseDirectory.value / jwtModuleName / "target"
-//cleanFiles += baseDirectory.value / rateLimiterModuleName / "target"
-//cleanFiles += baseDirectory.value / signerModuleName / "target"
-//cleanFiles += baseDirectory.value / utilsModuleName / "target"
-//cleanFiles += baseDirectory.value / queueModuleName / "target"
-//cleanFiles += baseDirectory.value / parserModuleName / "target"
-//cleanFiles += baseDirectory.value / riskAnalysisModuleName / "target"
+val generateCode = taskKey[Unit]("A task for generating code starting from the swagger definition")
+generateCode := {
+  println("Generating Code from OpenApi specs...")
+  generateClientProcess("catalog-management", "catalogmanagement")
+  generateServerProcess("catalog-management", "catalogmanagement")
+  generateClientProcess("catalog-process", "catalogprocess")
+  generateServerProcess("catalog-process", "catalogprocess")
+  println("Code from OpenApi specs completed")
 
-//lazy val sharedSettings: SettingsDefinition =
-//  Seq(scalafmtOnCompile := true, libraryDependencies ++= DependenciesLibrary.commonDependencies)
-//
-//lazy val utils = project
-//  .in(file(utilsModuleName))
-//  .settings(
-//    name                     := "interop-commons-utils",
-//    sharedSettings,
-//    libraryDependencies ++= CommonsDependencies.utilsDependencies,
-//    Test / parallelExecution := false
-//  )
-//  .setupBuildInfo
-//
-//lazy val fileManager = project
-//  .in(file(fileManagerModuleName))
-//  .settings(
-//    name := "interop-commons-file-manager",
-//    sharedSettings,
-//    libraryDependencies ++= Dependencies.Jars.fileDependencies
-//  )
-//  .dependsOn(utils)
-//  .setupBuildInfo
-//
-//lazy val mailManager = project
-//  .in(file(mailManagerModuleName))
-//  .settings(
-//    name        := "interop-commons-mail-manager",
-//    sharedSettings,
-//    libraryDependencies ++= Dependencies.Jars.mailDependencies,
-//    Test / fork := true
-//  )
-//  .dependsOn(utils)
-//  .setupBuildInfo
-//
-//lazy val signer = project
-//  .in(file(signerModuleName))
-//  .settings(
-//    name        := "interop-commons-signer",
-//    sharedSettings,
-//    libraryDependencies ++= Dependencies.Jars.signerDependencies,
-//    Test / fork := true
-//  )
-//  .dependsOn(utils)
-//  .setupBuildInfo
-//
-//lazy val jwtModule = project
-//  .in(file(jwtModuleName))
-//  .settings(
-//    name        := "interop-commons-jwt",
-//    sharedSettings,
-//    libraryDependencies ++= Dependencies.Jars.jwtDependencies,
-//    Test / fork := true,
-//    Test / javaOptions += "-Dconfig.file=src/test/resources/reference.conf"
-//  )
-//  .dependsOn(utils, signer)
-//  .setupBuildInfo
-//
-//lazy val queue = project
-//  .in(file(queueModuleName))
-//  .settings(
-//    name := "interop-commons-queue-manager",
-//    sharedSettings,
-//    libraryDependencies ++= Dependencies.Jars.queueDependencies
-//  )
-//  .dependsOn(utils)
-//  .setupBuildInfo
-//
-//lazy val cqrs = project
-//  .in(file(cqrsModuleName))
-//  .settings(name := "interop-commons-cqrs", sharedSettings, libraryDependencies ++= Dependencies.Jars.cqrsDependencies)
-//  .dependsOn(utils)
-//  .setupBuildInfo
-//
-//lazy val rateLimiter = project
-//  .in(file(rateLimiterModuleName))
-//  .settings(
-//    name := "interop-commons-rate-limiter",
-//    sharedSettings,
-//    libraryDependencies ++= Dependencies.Jars.rateLimiterDependencies
-//  )
-//  .dependsOn(utils)
-//  .setupBuildInfo
-//
-//lazy val parser = project
-//  .in(file(parserModuleName))
-//  .settings(
-//    name := "interop-commons-parser",
-//    sharedSettings,
-//    libraryDependencies ++= Dependencies.Jars.parserDependencies
-//  )
-//  .setupBuildInfo
-//
-//  lazy val riskAnalysis = project
-//  .in(file(riskAnalysisModuleName))
-//  .settings(
-//    name := "interop-commons-risk-analysis",
-//    sharedSettings,
-//    libraryDependencies ++= Dependencies.Jars.riskAnalysisDependencies
-//  )
-//  .setupBuildInfo
-//
+}
 
-lazy val commons = RootProject(file("commons"))
+(Compile / compile) := ((Compile / compile) dependsOn generateCode).value
+
+lazy val commons           = RootProject(file("commons"))
 lazy val catalogManagement = RootProject(file("services/catalog-management"))
+lazy val catalogProcess    = RootProject(file("services/catalog-process"))
 
-lazy val root = (project in file("."))
-//  .aggregate(utils, fileManager, mailManager, rateLimiter, signer, jwtModule, queue, cqrs, parser, riskAnalysis)
-//  .aggregate(utils)
-  .aggregate(commons, catalogManagement)
-//  .settings(name := "interop-commons")
-//  .enablePlugins(NoPublishPlugin)
-
-//lazy val commonsProject = CommonsConfigs.commons
+lazy val platform = (project in file("."))
+  .aggregate(commons, catalogManagement, catalogProcess)

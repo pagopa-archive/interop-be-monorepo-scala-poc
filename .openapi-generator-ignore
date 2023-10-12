@@ -22,6 +22,6 @@
 # Then explicitly reverse the ignore rule for a single file:
 #!docs/README.md
 
-build.sbt
-project/plugins.sbt
-project/build.properties
+**/build.sbt
+**/project/plugins.sbt
+**/project/build.properties

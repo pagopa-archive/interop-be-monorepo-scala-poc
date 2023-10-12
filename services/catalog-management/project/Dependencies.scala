@@ -1,5 +1,4 @@
 import Versions._
-import PagopaVersions._
 import sbt._
 
 object Dependencies {
