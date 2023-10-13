@@ -7,9 +7,6 @@ ThisBuild / organizationName  := "Pagopa S.p.A."
 ThisBuild / dependencyOverrides ++= Dependencies.Jars.overrides
 ThisBuild / version           := ComputeVersion.version
 Global / onChangedBuildSource := ReloadOnSourceChanges
-//ThisBuild / githubOwner       := "pagopa"
-//ThisBuild / githubRepository  := "interop-be-catalog-process"
-//ThisBuild / resolvers += Resolver.githubPackages("pagopa")
 ThisBuild / scalafmtConfig    := file(".scalafmt.conf")
 
 lazy val generateCode = taskKey[Unit]("A task for generating the code starting from the swagger definition")

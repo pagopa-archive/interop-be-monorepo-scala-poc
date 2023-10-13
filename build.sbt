@@ -1,18 +1,9 @@
-//import ProjectSettings.ProjectFrom
-
-//import modules.ComputeVersion
-//import OpenApiTools._
-
 import OpenApiTools._
 
 ThisBuild / scalaVersion      := "2.13.10"
 ThisBuild / organization      := "it.pagopa"
 ThisBuild / organizationName  := "Pagopa S.p.A."
-//ThisBuild / version           := ComputeVersion.version
 Global / onChangedBuildSource := ReloadOnSourceChanges
-//ThisBuild / githubOwner       := "pagopa"
-//ThisBuild / githubRepository  := "interop-commons"
-//ThisBuild / resolvers += Resolver.githubPackages("pagopa")
 
 lazy val sharedSettings: SettingsDefinition =
   Seq(publish / skip := true, publish := (()), publishLocal := (()), publishTo := None, Docker / publish := {})

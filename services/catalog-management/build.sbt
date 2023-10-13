@@ -7,15 +7,9 @@ ThisBuild / organizationName  := "Pagopa S.p.A."
 Global / onChangedBuildSource := ReloadOnSourceChanges
 ThisBuild / dependencyOverrides ++= Dependencies.Jars.overrides
 ThisBuild / version           := ComputeVersion.version
-//ThisBuild / githubOwner       := githubRepoOwner
-//ThisBuild / githubRepository  := githubRepositoryName
-//ThisBuild / resolvers += Resolver.githubPackages(githubRepoOwner)
 ThisBuild / scalafmtConfig    := file(".scalafmt.conf")
 
-//inThisBuild(sbtGithubActionsSettings)
-
 lazy val noPublishSettings: SettingsDefinition =
-//  Seq(publish / skip := true, publish := (()), publishLocal := (()), publishTo := None, Docker / publish := {})
   Seq(publish / skip := true, publish := (()), publishLocal := (()), publishTo := None)
 
 lazy val sharedSettings: SettingsDefinition =

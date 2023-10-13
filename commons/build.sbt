@@ -5,9 +5,6 @@ ThisBuild / organization      := "it.pagopa"
 ThisBuild / organizationName  := "Pagopa S.p.A."
 ThisBuild / version           := ComputeVersion.version
 Global / onChangedBuildSource := ReloadOnSourceChanges
-//ThisBuild / githubOwner       := "pagopa"
-//ThisBuild / githubRepository  := "interop-commons"
-//ThisBuild / resolvers += Resolver.githubPackages("pagopa")
 ThisBuild / scalafmtConfig    := file(".scalafmt.conf")
 
 val fileManagerModuleName  = "file-manager"
@@ -33,7 +30,6 @@ cleanFiles += baseDirectory.value / parserModuleName / "target"
 cleanFiles += baseDirectory.value / riskAnalysisModuleName / "target"
 
 lazy val noPublishSettings: SettingsDefinition =
-//  Seq(publish / skip := true, publish := (()), publishLocal := (()), publishTo := None, Docker / publish := {})
   Seq(publish / skip := true, publish := (()), publishLocal := (()), publishTo := None)
 
 lazy val sharedSettings: SettingsDefinition =
