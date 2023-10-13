@@ -5,9 +5,9 @@ ThisBuild / organization      := "it.pagopa"
 ThisBuild / organizationName  := "Pagopa S.p.A."
 ThisBuild / version           := ComputeVersion.version
 Global / onChangedBuildSource := ReloadOnSourceChanges
-ThisBuild / githubOwner       := "pagopa"
-ThisBuild / githubRepository  := "interop-commons"
-ThisBuild / resolvers += Resolver.githubPackages("pagopa")
+//ThisBuild / githubOwner       := "pagopa"
+//ThisBuild / githubRepository  := "interop-commons"
+//ThisBuild / resolvers += Resolver.githubPackages("pagopa")
 ThisBuild / scalafmtConfig    := file(".scalafmt.conf")
 
 val fileManagerModuleName  = "file-manager"
