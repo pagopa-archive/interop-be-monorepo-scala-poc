@@ -79,21 +79,25 @@ cleanFiles += baseDirectory.value / "client" / "target"
 
 val runStandalone = inputKey[Unit]("Run the app using standalone configuration")
 runStandalone := {
-  task(System.setProperty("config.file", "src/main/resources/application-standalone.conf")).value
+  task(
+    System.setProperty("config.file", s"services/${projectName.value}/src/main/resources/application-standalone.conf")
+  ).value
   (Compile / run).evaluated
 }
 
+lazy val sharedSettings: SettingsDefinition =
+  Seq(
+    scalafmtOnCompile := true,
+    publish / skip    := true,
+    publish           := (()),
+    publishLocal      := (()),
+    publishTo         := None,
+    Docker / publish  := {}
+  )
+
 lazy val generated = project
   .in(file("generated"))
-  .settings(
-    scalacOptions       := Seq(),
-    scalafmtOnCompile   := true,
-    libraryDependencies := Dependencies.Jars.`server`,
-    publish / skip      := true,
-    publish             := (()),
-    publishLocal        := (()),
-    publishTo           := None
-  )
+  .settings(scalacOptions := Seq(), sharedSettings, libraryDependencies := Dependencies.Jars.`server`)
   .dependsOn(commonsUtils)
   .setupBuildInfo
 
@@ -102,10 +106,9 @@ lazy val client = project
   .settings(
     name                := "interop-be-catalog-process-client",
     scalacOptions       := Seq(),
-    scalafmtOnCompile   := true,
+    sharedSettings,
     libraryDependencies := Dependencies.Jars.client,
-    updateOptions       := updateOptions.value.withGigahorse(false),
-    Docker / publish    := {}
+    updateOptions       := updateOptions.value.withGigahorse(false)
   )
   .dependsOn(commonsUtils)
 

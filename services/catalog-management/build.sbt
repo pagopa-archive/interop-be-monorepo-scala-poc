@@ -14,6 +14,13 @@ ThisBuild / scalafmtConfig    := file(".scalafmt.conf")
 
 inThisBuild(sbtGithubActionsSettings)
 
+lazy val noPublishSettings: SettingsDefinition =
+//  Seq(publish / skip := true, publish := (()), publishLocal := (()), publishTo := None, Docker / publish := {})
+  Seq(publish / skip := true, publish := (()), publishLocal := (()), publishTo := None)
+
+lazy val sharedSettings: SettingsDefinition =
+  Seq(scalafmtOnCompile := true) ++ noPublishSettings
+
 lazy val generateCode = taskKey[Unit]("A task for generating the code starting from the swagger definition")
 
 val commonsUtils       = ProjectRef(file("../../commons"), "utils")
@@ -91,15 +98,7 @@ lazy val generated = project
   .configs(IntegrationTest)
   .settings(Defaults.itSettings: _*)
   .in(file("generated"))
-  .settings(
-    scalacOptions       := Seq(),
-    scalafmtOnCompile   := true,
-    libraryDependencies := Dependencies.Jars.`server`,
-    publish / skip      := true,
-    publish             := (()),
-    publishLocal        := (()),
-    publishTo           := None
-  )
+  .settings(scalacOptions := Seq(), libraryDependencies := Dependencies.Jars.`server`, sharedSettings)
   .dependsOn(commonsUtils)
   .setupBuildInfo
 
@@ -108,8 +107,7 @@ lazy val models = project
   .settings(
     name                := "interop-be-catalog-management-models",
     libraryDependencies := Dependencies.Jars.models,
-    scalafmtOnCompile   := true,
-    Docker / publish    := {}
+    sharedSettings
   )
   .dependsOn(commonsUtils, commonsQueue)
 
@@ -118,10 +116,9 @@ lazy val client = project
   .settings(
     name                := "interop-be-catalog-management-client",
     scalacOptions       := Seq(),
-    scalafmtOnCompile   := true,
     libraryDependencies := Dependencies.Jars.client,
     updateOptions       := updateOptions.value.withGigahorse(false),
-    Docker / publish    := {}
+    sharedSettings
   )
   .dependsOn(commonsUtils)
 

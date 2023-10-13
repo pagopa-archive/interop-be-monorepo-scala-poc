@@ -14,6 +14,9 @@ ThisBuild / githubOwner       := "pagopa"
 //ThisBuild / githubRepository  := "interop-commons"
 ThisBuild / resolvers += Resolver.githubPackages("pagopa")
 
+lazy val sharedSettings: SettingsDefinition =
+  Seq(publish / skip := true, publish := (()), publishLocal := (()), publishTo := None, Docker / publish := {})
+
 val generateCode = taskKey[Unit]("A task for generating code starting from the swagger definition")
 generateCode := {
   println("Generating Code from OpenApi specs...")
@@ -32,4 +35,6 @@ lazy val catalogManagement = RootProject(file("services/catalog-management"))
 lazy val catalogProcess    = RootProject(file("services/catalog-process"))
 
 lazy val platform = (project in file("."))
+  .settings(sharedSettings)
   .aggregate(commons, catalogManagement, catalogProcess)
+  .enablePlugins(NoPublishPlugin)

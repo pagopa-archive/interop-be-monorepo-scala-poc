@@ -32,16 +32,20 @@ cleanFiles += baseDirectory.value / queueModuleName / "target"
 cleanFiles += baseDirectory.value / parserModuleName / "target"
 cleanFiles += baseDirectory.value / riskAnalysisModuleName / "target"
 
+lazy val noPublishSettings: SettingsDefinition =
+//  Seq(publish / skip := true, publish := (()), publishLocal := (()), publishTo := None, Docker / publish := {})
+  Seq(publish / skip := true, publish := (()), publishLocal := (()), publishTo := None)
+
 lazy val sharedSettings: SettingsDefinition =
-  Seq(scalafmtOnCompile := true, libraryDependencies ++= Dependencies.Jars.commonDependencies)
+  Seq(scalafmtOnCompile := true, libraryDependencies ++= Dependencies.Jars.commonDependencies) ++ noPublishSettings
 
 lazy val utils = project
   .in(file(utilsModuleName))
   .settings(
     name                     := "interop-commons-utils",
-    sharedSettings,
     libraryDependencies ++= Dependencies.Jars.utilsDependencies,
-    Test / parallelExecution := false
+    Test / parallelExecution := false,
+    sharedSettings
   )
   .setupBuildInfo
 
@@ -59,9 +63,9 @@ lazy val mailManager = project
   .in(file(mailManagerModuleName))
   .settings(
     name        := "interop-commons-mail-manager",
-    sharedSettings,
     libraryDependencies ++= Dependencies.Jars.mailDependencies,
-    Test / fork := true
+    Test / fork := true,
+    sharedSettings
   )
   .dependsOn(utils)
   .setupBuildInfo
@@ -70,9 +74,9 @@ lazy val signer = project
   .in(file(signerModuleName))
   .settings(
     name        := "interop-commons-signer",
-    sharedSettings,
     libraryDependencies ++= Dependencies.Jars.signerDependencies,
-    Test / fork := true
+    Test / fork := true,
+    sharedSettings
   )
   .dependsOn(utils)
   .setupBuildInfo
@@ -81,10 +85,10 @@ lazy val jwtModule = project
   .in(file(jwtModuleName))
   .settings(
     name        := "interop-commons-jwt",
-    sharedSettings,
     libraryDependencies ++= Dependencies.Jars.jwtDependencies,
     Test / fork := true,
-    Test / javaOptions += "-Dconfig.file=src/test/resources/reference.conf"
+    Test / javaOptions += "-Dconfig.file=src/test/resources/reference.conf",
+    sharedSettings
   )
   .dependsOn(utils, signer)
   .setupBuildInfo
@@ -93,15 +97,15 @@ lazy val queue = project
   .in(file(queueModuleName))
   .settings(
     name := "interop-commons-queue-manager",
-    sharedSettings,
-    libraryDependencies ++= Dependencies.Jars.queueDependencies
+    libraryDependencies ++= Dependencies.Jars.queueDependencies,
+    sharedSettings
   )
   .dependsOn(utils)
   .setupBuildInfo
 
 lazy val cqrs = project
   .in(file(cqrsModuleName))
-  .settings(name := "interop-commons-cqrs", sharedSettings, libraryDependencies ++= Dependencies.Jars.cqrsDependencies)
+  .settings(name := "interop-commons-cqrs", libraryDependencies ++= Dependencies.Jars.cqrsDependencies, sharedSettings)
   .dependsOn(utils)
   .setupBuildInfo
 
@@ -109,8 +113,8 @@ lazy val rateLimiter = project
   .in(file(rateLimiterModuleName))
   .settings(
     name := "interop-commons-rate-limiter",
-    sharedSettings,
-    libraryDependencies ++= Dependencies.Jars.rateLimiterDependencies
+    libraryDependencies ++= Dependencies.Jars.rateLimiterDependencies,
+    sharedSettings
   )
   .dependsOn(utils)
   .setupBuildInfo
@@ -119,8 +123,8 @@ lazy val parser = project
   .in(file(parserModuleName))
   .settings(
     name := "interop-commons-parser",
-    sharedSettings,
-    libraryDependencies ++= Dependencies.Jars.parserDependencies
+    libraryDependencies ++= Dependencies.Jars.parserDependencies,
+    sharedSettings
   )
   .setupBuildInfo
 
@@ -128,8 +132,8 @@ lazy val riskAnalysis = project
   .in(file(riskAnalysisModuleName))
   .settings(
     name := "interop-commons-risk-analysis",
-    sharedSettings,
-    libraryDependencies ++= Dependencies.Jars.riskAnalysisDependencies
+    libraryDependencies ++= Dependencies.Jars.riskAnalysisDependencies,
+    sharedSettings
   )
   .setupBuildInfo
 
