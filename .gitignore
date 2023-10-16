@@ -8,7 +8,7 @@ metals.sbt
 .bloop
 .metals
 .bsp
-.openapi-generator
+**/.openapi-generator/
 .DS_Store
 **/client/project/build.properties
 **/generated/src/
