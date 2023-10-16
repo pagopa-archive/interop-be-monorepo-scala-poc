@@ -83,7 +83,7 @@ lazy val jwtModule = project
     name        := "interop-commons-jwt",
     libraryDependencies ++= Dependencies.Jars.jwtDependencies,
     Test / fork := true,
-    Test / javaOptions += "-Dconfig.file=src/test/resources/reference.conf",
+    Test / javaOptions += s"-Dconfig.file=commons/jwt/src/test/resources/reference.conf",
     sharedSettings
   )
   .dependsOn(utils, signer)
