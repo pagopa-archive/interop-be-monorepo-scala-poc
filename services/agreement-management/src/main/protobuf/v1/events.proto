@@ -1,0 +1,52 @@
+syntax = "proto2";
+
+import "scalapb/scalapb.proto";
+import "v1/agreement.proto";
+
+option (scalapb.options) = {
+  package_name: "it.pagopa.interop.agreementmanagement.model.persistence.serializer.v1"
+  no_default_values_in_constructor : true
+};
+
+message AgreementAddedV1 {
+  required AgreementV1 agreement = 1;
+}
+
+message AgreementActivatedV1 {
+  required AgreementV1 agreement = 1;
+}
+
+message AgreementSuspendedV1 {
+  required AgreementV1 agreement = 1;
+}
+
+message AgreementDeactivatedV1 {
+  required AgreementV1 agreement = 1;
+}
+
+message AgreementUpdatedV1 {
+  required AgreementV1 agreement = 1;
+}
+
+message AgreementDeletedV1 {
+  required string agreementId = 1;
+}
+
+message VerifiedAttributeUpdatedV1 {
+  required AgreementV1 agreement = 1;
+}
+
+message AgreementConsumerDocumentAddedV1 {
+  required string agreementId = 1;
+  required AgreementDocumentV1 document = 2;
+}
+
+message AgreementConsumerDocumentRemovedV1 {
+  required string agreementId = 1;
+  required string documentId = 2;
+}
+
+message AgreementContractAddedV1 {
+  required string agreementId = 1;
+  required AgreementDocumentV1 contract = 2;
+}
