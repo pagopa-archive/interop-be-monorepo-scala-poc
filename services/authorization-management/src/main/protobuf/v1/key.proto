@@ -1,0 +1,28 @@
+syntax = "proto2";
+
+import "scalapb/scalapb.proto";
+
+option (scalapb.options) = {
+  package_name: "it.pagopa.interop.authorizationmanagement.model.persistence.serializer.v1"
+  no_default_values_in_constructor : true
+};
+
+message PersistentKeyEntryV1 {
+  required string keyId = 1;
+  required PersistentKeyV1 value = 2;
+}
+
+message PersistentKeyV1 {
+  required string relationshipId = 1;
+  required string kid = 2;
+  required string encodedPem = 3;
+  required KeyUseV1 use = 4;
+  required string algorithm = 5;
+  required string createdAt = 6;
+  required string name = 7;
+}
+
+enum KeyUseV1 {
+  SIG = 1;
+  ENC = 2;
+}

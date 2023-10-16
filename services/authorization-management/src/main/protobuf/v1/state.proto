@@ -1,0 +1,26 @@
+syntax = "proto2";
+
+import "scalapb/scalapb.proto";
+import "v1/key.proto";
+import "v1/client.proto";
+
+option (scalapb.options) = {
+  package_name: "it.pagopa.interop.authorizationmanagement.model.persistence.serializer.v1"
+  no_default_values_in_constructor : true
+};
+
+
+message StateV1 {
+  repeated StateKeysEntryV1 keys = 1;
+  repeated StateClientsEntryV1 clients = 2;
+}
+
+message StateKeysEntryV1 {
+  required string clientId = 1;
+  repeated PersistentKeyEntryV1 keyEntries = 2;
+}
+
+message StateClientsEntryV1 {
+  required string clientId = 1;
+  required PersistentClientV1 client = 2;
+}
