@@ -1,0 +1,144 @@
+{
+  "endpoints": [
+    {
+      "verb": "POST",
+      "roles": [
+        "admin"
+      ],
+      "route": "createPurpose"
+    },
+    {
+      "verb": "POST",
+      "roles": [
+        "admin"
+      ],
+      "route": "createPurposeFromEService"
+    },
+    {
+      "verb": "GET",
+      "roles": [
+        "admin",
+        "api",
+        "security",
+        "m2m",
+        "support"
+      ],
+      "route": "getPurpose"
+    },
+    {
+      "verb": "DELETE",
+      "roles": [
+        "admin"
+      ],
+      "route": "deletePurpose"
+    },
+    {
+      "verb": "POST",
+      "roles": [
+        "admin"
+      ],
+      "route": "createPurposeVersion"
+    },
+    {
+      "verb": "DELETE",
+      "roles": [
+        "admin",
+        "internal"
+      ],
+      "route": "deletePurposeVersion"
+    },
+    {
+      "verb": "POST",
+      "roles": [
+        "admin"
+      ],
+      "route": "activatePurposeVersion"
+    },
+    {
+      "verb": "POST",
+      "roles": [
+        "admin"
+      ],
+      "route": "suspendPurposeVersion"
+    },
+    {
+      "verb": "POST",
+      "roles": [
+        "admin"
+      ],
+      "route": "waitForApprovalPurposeVersion"
+    },
+    {
+      "verb": "POST",
+      "roles": [
+        "admin",
+        "internal"
+      ],
+      "route": "archivePurposeVersion"
+    },
+    {
+      "verb": "GET",
+      "roles": [
+        "admin",
+        "api",
+        "security",
+        "m2m",
+        "internal",
+        "support"
+      ],
+      "route": "getPurposes"
+    },
+    {
+      "verb": "POST",
+      "roles": [
+        "admin"
+      ],
+      "route": "updatePurpose"
+    },
+    {
+      "verb": "POST",
+      "roles": [
+        "admin"
+      ],
+      "route": "updateReversePurpose"
+    },
+    {
+      "verb": "POST",
+      "roles": [
+        "admin"
+      ],
+      "route": "clonePurpose"
+    },
+    {
+      "verb": "POST",
+      "roles": [
+        "admin"
+      ],
+      "route": "updateWaitingForApprovalPurposeVersion"
+    },
+    {
+      "verb": "GET",
+      "roles": [
+        "admin",
+        "support"
+      ],
+      "route": "getRiskAnalysisDocument"
+    },
+    {
+      "verb": "GET",
+      "roles": [
+        "admin",
+        "support"
+      ],
+      "route": "retrieveLatestRiskAnalysisConfiguration"
+    },
+    {
+      "verb": "GET",
+      "roles": [
+        "admin",
+        "support"
+      ],
+      "route": "retrieveRiskAnalysisConfigurationByVersion"
+    }
+  ]
+}
