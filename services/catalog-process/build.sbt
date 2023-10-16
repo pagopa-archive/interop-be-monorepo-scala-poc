@@ -17,8 +17,11 @@ val commonsJwt          = ProjectRef(file("../../commons"), "jwtModule")
 val commonsCqrs         = ProjectRef(file("../../commons"), "cqrs")
 val commonsRiskAnalysis = ProjectRef(file("../../commons"), "riskAnalysis")
 
-val catalogManagementClient = ProjectRef(file("../catalog-management"), "client")
-val catalogManagementModels = ProjectRef(file("../catalog-management"), "models")
+val agreementManagementModels     = ProjectRef(file("../agreement-management"), "models")
+val authorizationManagementClient = ProjectRef(file("../authorization-management"), "client")
+val catalogManagementClient       = ProjectRef(file("../catalog-management"), "client")
+val catalogManagementModels       = ProjectRef(file("../catalog-management"), "models")
+val tenantManagementModels        = ProjectRef(file("../tenant-management"), "models")
 
 val packagePrefix = settingKey[String]("The package prefix derived from the uservice name")
 
@@ -133,6 +136,9 @@ lazy val root = (project in file("."))
     commonsJwt,
     commonsCqrs,
     commonsRiskAnalysis,
+    agreementManagementModels,
+    authorizationManagementClient,
+    tenantManagementModels,
     catalogManagementClient,
     catalogManagementModels
   )
@@ -142,4 +148,4 @@ lazy val root = (project in file("."))
   .setupBuildInfo
 
 Test / fork := true
-Test / javaOptions += "-Dconfig.file=src/test/resources/application-test.conf"
+Test / javaOptions += s"-Dconfig.file=services/${projectName.value}/src/test/resources/application-test.conf"

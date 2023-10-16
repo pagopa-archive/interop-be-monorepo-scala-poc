@@ -1,4 +1,3 @@
-import PagopaVersions._
 import Versions._
 import sbt._
 
@@ -66,20 +65,6 @@ object Dependencies {
     lazy val core      = namespace %% "scalamock" % scalaMockVersion
   }
 
-  private[this] object pagopa {
-    lazy val namespace = "it.pagopa"
-
-    lazy val tenantManagementModels =
-      namespace %% "interop-be-tenant-management-models" % tenantManagementVersion
-
-    lazy val agreementManagementModels =
-      namespace %% "interop-be-agreement-management-models" % agreementManagementVersion
-
-    lazy val authorizationManagementClient =
-      namespace %% "interop-be-authorization-management-client" % authorizationManagementVersion
-
-  }
-
   object Jars {
     lazy val overrides: Seq[ModuleID] =
       Seq(jackson.annotations % Compile, jackson.core % Compile, jackson.databind % Compile)
@@ -99,9 +84,6 @@ object Dependencies {
       logback.classic                      % Compile,
       akka.slf4j                           % Compile,
       resilience4j.rateLimiter             % Compile,
-      pagopa.agreementManagementModels     % Compile,
-      pagopa.authorizationManagementClient % Compile,
-      pagopa.tenantManagementModels        % Compile,
       akka.testkit                         % Test,
       akka.httpTestkit                     % Test,
       scalatest.core                       % Test,

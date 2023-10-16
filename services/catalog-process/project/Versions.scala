@@ -22,10 +22,3 @@ object Versions {
   lazy val slickVersion                = "3.3.3"
   lazy val swaggerValidatorVersion     = "2.23.0"
 }
-
-object PagopaVersions {
-  lazy val agreementManagementVersion         = "1.0.x-SNAPSHOT"
-  lazy val attributeRegistryManagementVersion = "1.0.x-SNAPSHOT"
-  lazy val tenantManagementVersion            = "1.0.x-SNAPSHOT"
-  lazy val authorizationManagementVersion     = "1.0.x-SNAPSHOT"
-}
