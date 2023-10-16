@@ -1,0 +1,80 @@
+{
+  "endpoints": [
+    {
+      "route": "createAgreement",
+      "verb": "POST",
+      "roles": ["admin"]
+    },
+    {
+      "route": "deleteAgreement",
+      "verb": "DELETE",
+      "roles": ["admin"]
+    },
+    {
+      "route": "submitAgreement",
+      "verb": "POST",
+      "roles": ["admin"]
+    },
+    {
+      "route": "activateAgreement",
+      "verb": "POST",
+      "roles": ["admin"]
+    },
+    {
+      "route": "suspendAgreement",
+      "verb": "POST",
+      "roles": ["admin"]
+    },
+    {
+      "route": "rejectAgreement",
+      "verb": "POST",
+      "roles": ["admin"]
+    },
+    {
+      "route": "archiveAgreement",
+      "verb": "POST",
+      "roles": ["admin"]
+    },
+    {
+      "route": "getAgreements",
+      "verb": "GET",
+      "roles": ["admin", "api", "security", "m2m","support"]
+    },
+    {
+      "route": "getAgreementProducers",
+      "verb": "GET",
+      "roles": ["admin", "api", "security","support"]
+    },
+    {
+      "route": "getAgreementConsumers",
+      "verb": "GET",
+      "roles": ["admin", "api", "security","support"]
+    },
+    {
+      "route": "getAgreementEServices",
+      "verb": "GET",
+      "roles": ["admin", "api", "security","support"]
+    },
+    {
+      "route": "getAgreementById",
+      "verb": "GET",
+      "roles": ["admin", "api", "security", "m2m", "internal", "support"]
+    },
+    {
+      "route": "updateAgreementById",
+      "verb": "POST",
+      "roles": ["admin"]
+    },
+    {
+      "route": "upgradeAgreementById",
+      "verb": "POST",
+      "roles": ["admin"]
+    },
+    {
+      "route": "computeAgreementsByAttribute",
+      "verb": "POST",
+      "roles": ["admin", "internal", "m2m"]
+    }
+  ]
+}
+
