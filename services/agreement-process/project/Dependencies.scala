@@ -1,4 +1,3 @@
-import PagopaVersion._
 import Versions._
 import sbt._
 
