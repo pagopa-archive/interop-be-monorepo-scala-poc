@@ -1,4 +1,3 @@
-import OpenApiTools._
 
 ThisBuild / scalaVersion      := "2.13.10"
 ThisBuild / organization      := "it.pagopa"
@@ -7,63 +6,6 @@ Global / onChangedBuildSource := ReloadOnSourceChanges
 
 lazy val sharedSettings: SettingsDefinition =
   Seq(publish / skip := true, publish := (()), publishLocal := (()), publishTo := None, Docker / publish := {})
-
-val generateCode = taskKey[Unit]("A task for generating code starting from the swagger definition")
-generateCode := {
-  println("Generating Code from OpenApi specs...")
-  generateClientProcess("agreement-management", "interop.agreementmanagement")
-  generateServerProcess("agreement-management", "interop.agreementmanagement")
-  generateClientProcess("agreement-process", "interop.agreementprocess")
-  generateServerProcess("agreement-process", "interop.agreementprocess")
-
-  generateServerProcess("api-gateway", "interop.apigateway")
-
-  generateClientProcess("attribute-registry-management", "interop.attributeregistrymanagement")
-  generateServerProcess("attribute-registry-management", "interop.attributeregistrymanagement")
-  generateClientProcess("attribute-registry-process", "interop.attributeregistryprocess")
-  generateServerProcess("attribute-registry-process", "interop.attributeregistryprocess")
-
-  generateClientProcess("authorization-management", "interop.authorizationmanagement")
-  generateServerProcess("authorization-management", "interop.authorizationmanagement")
-  generateClientProcess("authorization-process", "interop.authorizationprocess")
-  generateServerProcess("authorization-process", "interop.authorizationprocess")
-
-  generateClientProcess("authorization-server", "interop.authorizationserver")
-  generateServerProcess("authorization-server", "interop.authorizationserver")
-
-  generateServerProcess("backend-for-frontend", "interop.backendforfrontend")
-
-  generateClientProcess("catalog-management", "interop.catalogmanagement")
-  generateServerProcess("catalog-management", "interop.catalogmanagement")
-  generateClientProcess("catalog-process", "interop.catalogprocess")
-  generateServerProcess("catalog-process", "interop.catalogprocess")
-
-  generateClientProcess("notifier", "interop.notifier")
-  generateServerProcess("notifier", "interop.notifier")
-
-  generateClientProcess("party-registry-proxy", "interop.partyregistryproxy")
-  generateServerProcess("party-registry-proxy", "interop.partyregistryproxy")
-
-  generateClientProcess("purpose-management", "interop.purposemanagement")
-  generateServerProcess("purpose-management", "interop.purposemanagement")
-  generateClientProcess("purpose-process", "interop.purposeprocess")
-  generateServerProcess("purpose-process", "interop.purposeprocess")
-
-  generateSelfcareClientProcess("party-management-client", "interop.selfcare.partymanagement")
-  generateSelfcareClientProcess("party-process-client", "interop.selfcare.partyprocess")
-  generateSelfcareClientProcess("selfcare-v2-client", "interop.selfcare.v2")
-  generateSelfcareClientProcess("user-registry-client", "interop.selfcare.userregistry")
-
-  generateClientProcess("tenant-management", "interop.tenantmanagement")
-  generateServerProcess("tenant-management", "interop.tenantmanagement")
-  generateClientProcess("tenant-process", "interop.tenantprocess")
-  generateServerProcess("tenant-process", "interop.tenantprocess")
-
-  println("Code from OpenApi specs completed")
-
-}
-
-//(Compile / compile) := ((Compile / compile) dependsOn generateCode).value
 
 lazy val commons         = RootProject(file("commons"))
 lazy val selfcareClients = RootProject(file("selfcare-proxy-clients"))
