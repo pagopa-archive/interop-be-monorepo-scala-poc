@@ -157,7 +157,7 @@ lazy val selfcareV2Client = project
   )
   .dependsOn(commonsUtils)
 
-(Compile / compile) := ((Compile / compile) dependsOn partyProcessClient / generateCode).value
-(Compile / compile) := ((Compile / compile) dependsOn partyManagementClient / generateCode).value
-(Compile / compile) := ((Compile / compile) dependsOn userRegistryClient / generateCode).value
-(Compile / compile) := ((Compile / compile) dependsOn selfcareV2Client / generateCode).value
+//(Compile / compile) := ((Compile / compile) dependsOn partyProcessClient / generateCode).value
+//(Compile / compile) := ((Compile / compile) dependsOn partyManagementClient / generateCode).value
+//(Compile / compile) := ((Compile / compile) dependsOn userRegistryClient / generateCode).value
+//(Compile / compile) := ((Compile / compile) dependsOn selfcareV2Client / generateCode).value
