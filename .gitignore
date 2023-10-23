@@ -13,4 +13,5 @@ metals.sbt
 **/client/project/build.properties
 **/generated/src/
 **/client/src/
+**/snapshots/
 .env
