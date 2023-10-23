@@ -65,9 +65,6 @@ generateCode := {
 
 }
 
-//(Compile / compile) := ((Compile / compile) dependsOn generateCode).value
-(Test / test)       := ((Test / test) dependsOn generateCode).value
-
 Compile / PB.targets := Seq(scalapb.gen() -> (Compile / sourceManaged).value / "protobuf")
 
 cleanFiles += baseDirectory.value / "generated" / "src"
@@ -121,9 +118,9 @@ lazy val root = (project in file("."))
     name                        := "interop-be-purpose-management",
     Test / parallelExecution    := false,
     Test / fork                 := true,
-    Test / javaOptions += s"-Dconfig.file=services/${projectName.value}/src/test/resources/application-test.conf",
+    Test / javaOptions += s"-Dconfig.file=${baseDirectory.value}/src/test/resources/application-test.conf",
     IntegrationTest / fork      := true,
-    IntegrationTest / javaOptions += s"-Dconfig.file=services/${projectName.value}/src/it/resources/application-it.conf",
+    IntegrationTest / javaOptions += s"-Dconfig.file=${baseDirectory.value}/src/it/resources/application-it.conf",
     scalafmtOnCompile           := true,
     libraryDependencies         := Dependencies.Jars.`server`,
     dockerBuildOptions ++= Seq("--network=host"),

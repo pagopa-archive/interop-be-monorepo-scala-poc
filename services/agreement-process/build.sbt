@@ -76,9 +76,6 @@ generateCode := {
 
 }
 
-//(Compile / compile) := ((Compile / compile) dependsOn generateCode).value
-(Test / test)       := ((Test / test) dependsOn generateCode).value
-
 cleanFiles += baseDirectory.value / "generated" / "src"
 cleanFiles += baseDirectory.value / "generated" / "target"
 
@@ -91,7 +88,7 @@ cleanFiles += baseDirectory.value / "events" / "target"
 val runStandalone = inputKey[Unit]("Run the app using standalone configuration")
 runStandalone := {
   task(
-    System.setProperty("config.file", "services/${projectName.value}/src/main/resources/application-standalone.conf")
+    System.setProperty("config.file", s"services/${projectName.value}/src/main/resources/application-standalone.conf")
   ).value
   (Compile / run).evaluated
 }
@@ -138,7 +135,7 @@ lazy val root = (project in file("."))
     name                        := "interop-be-agreement-process",
     Test / parallelExecution    := false,
     Test / fork                 := true,
-    Test / javaOptions += s"-Dconfig.file=services/${projectName.value}/src/test/resources/application-test.conf",
+    Test / javaOptions += s"-Dconfig.file=${baseDirectory.value}/src/test/resources/application-test.conf",
     scalafmtOnCompile           := true,
     dockerBuildOptions ++= Seq("--network=host"),
     dockerRepository            := Some(System.getenv("ECR_REGISTRY")),
