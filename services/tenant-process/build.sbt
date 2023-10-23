@@ -73,9 +73,6 @@ generateCode := {
 
 }
 
-//(Compile / compile) := ((Compile / compile) dependsOn generateCode).value
-(Test / test)       := ((Test / test) dependsOn generateCode).value
-
 cleanFiles += baseDirectory.value / "generated" / "src"
 
 cleanFiles += baseDirectory.value / "generated" / "target"
@@ -114,7 +111,7 @@ lazy val root = (project in file("."))
     name                        := "interop-be-tenant-process",
     Test / parallelExecution    := false,
     Test / fork                 := true,
-    Test / javaOptions += s"-Dconfig.file=services/${projectName.value}/src/test/resources/application-test.conf",
+    Test / javaOptions += s"-Dconfig.file=${baseDirectory.value}/src/test/resources/application-test.conf",
     scalafmtOnCompile           := true,
     dockerBuildOptions ++= Seq("--network=host"),
     dockerRepository            := Some(System.getenv("ECR_REGISTRY")),
