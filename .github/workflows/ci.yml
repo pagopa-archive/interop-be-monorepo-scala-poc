@@ -50,11 +50,11 @@ jobs:
       - name: Installing openapi-generator-cli
         run: npm install -g @openapitools/openapi-generator-cli
 
-      - name: Regenerating code
-        run: sbt ++${{ matrix.scala }} generateCode
+      - name: Generate code and Build
+        run: sbt ++${{ matrix.scala }} generateCode test
 
-      - name: Build project
-        run: sbt ++${{ matrix.scala }} test
+#      - name: Build project
+#        run: sbt ++${{ matrix.scala }} test
 
   publish:
     name: Publish Images
