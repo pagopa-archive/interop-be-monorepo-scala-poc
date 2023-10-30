@@ -61,7 +61,7 @@ jobs:
 
       - name: List sbt
         run: | 
-          which sbt
+          ls -l /usr/bin | grep sbt
 
       - name: Cache sbt
         uses: actions/cache@v2
