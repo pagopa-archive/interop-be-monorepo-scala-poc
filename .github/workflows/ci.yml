@@ -10,42 +10,42 @@ env:
 
 jobs:
 
-  create_runner:
-    name: Create Self-Hosted Runner
-    runs-on: ubuntu-22.04
-    strategy:
-      matrix:
-        index: [1]
-      fail-fast: true
-    environment: dev
-    permissions:
-      contents: read
-      id-token: write
+  # create_runner:
+  #   name: Create Self-Hosted Runner
+  #   runs-on: ubuntu-22.04
+  #   strategy:
+  #     matrix:
+  #       index: [1]
+  #     fail-fast: true
+  #   environment: dev
+  #   permissions:
+  #     contents: read
+  #     id-token: write
 
-    steps:
-      - name: Start GitHub Runner
-        id: start_runner
-        uses: pagopa/interop-github-runner-aws-create-action@main
-        with:
-          aws_region: ${{ secrets.AWS_REGION }}
-          iam_role_arn: ${{ secrets.ECS_IAM_ROLE_ARN }}
-          ecs_cluster_name: ${{ secrets.ECS_CLUSTER_NAME }}
-          ecs_task_definition: ${{ secrets.TASK_DEFINITION }}
-          ecs_container_name: github-runner
-          ecs_task_subnet_id: ${{ secrets.SUBNET_ID }}
-          ecs_task_sec_group: ${{ secrets.SEC_GROUP_ID }}
-          pat_token: ${{ secrets.BOT_TOKEN }}
+  #   steps:
+  #     - name: Start GitHub Runner
+  #       id: start_runner
+  #       uses: pagopa/interop-github-runner-aws-create-action@main
+  #       with:
+  #         aws_region: ${{ secrets.AWS_REGION }}
+  #         iam_role_arn: ${{ secrets.ECS_IAM_ROLE_ARN }}
+  #         ecs_cluster_name: ${{ secrets.ECS_CLUSTER_NAME }}
+  #         ecs_task_definition: ${{ secrets.TASK_DEFINITION }}
+  #         ecs_container_name: github-runner
+  #         ecs_task_subnet_id: ${{ secrets.SUBNET_ID }}
+  #         ecs_task_sec_group: ${{ secrets.SEC_GROUP_ID }}
+  #         pat_token: ${{ secrets.BOT_TOKEN }}
 
   build:
     name: Build and Test
-    needs: [create_runner]
+    # needs: [create_runner]
     strategy:
       matrix:
         os: [ubuntu-latest]
         scala: [2.13.10]
         java: [temurin@11]
-    # runs-on: ${{ matrix.os }}
-    runs-on: [self-hosted, "run_id:${{ github.run_id }}"]
+    runs-on: ${{ matrix.os }}
+    # runs-on: [self-hosted, "run_id:${{ github.run_id }}"]
     steps:
       - name: Checkout current branch (full)
         uses: actions/checkout@v2
@@ -61,7 +61,7 @@ jobs:
 
       - name: List sbt
         run: | 
-          ls -lR /actions-runner/.workdir/_tool/Java_Temurin-Hotspot_jdk/11.0.21-9/x64 | grep sbt
+          which sbt
 
       - name: Cache sbt
         uses: actions/cache@v2
@@ -75,16 +75,16 @@ jobs:
             ~/Library/Caches/Coursier/v1
           key: ${{ runner.os }}-sbt-cache-v2-${{ hashFiles('**/*.sbt') }}-${{ hashFiles('project/build.properties') }}
 
-      - name: Install node 16
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
+      # - name: Install node 16
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 16
 
-      - name: Installing openapi-generator-cli
-        run: npm install -g @openapitools/openapi-generator-cli
+      # - name: Installing openapi-generator-cli
+      #   run: npm install -g @openapitools/openapi-generator-cli
 
-      - name: Generate code and Build
-        run: sbt ++${{ matrix.scala }} generateCode test
+      # - name: Generate code and Build
+      #   run: sbt ++${{ matrix.scala }} generateCode test
 
   # publish:
   #   name: Publish Images
@@ -153,26 +153,26 @@ jobs:
   #       run: 'sbt ++${{ matrix.scala }} docker:publish'
 
 
-  delete_runner:
-    name: Delete Self-Hosted Runner
-    needs: [create_runner, build]
-    if: ${{ always() && needs.create_runner.result != 'skipped' }}
-    runs-on: ubuntu-22.04
-    strategy:
-      matrix:
-        index: [1]
-      fail-fast: true
-    environment: dev
-    permissions:
-      contents: read
-      id-token: write
+  # delete_runner:
+  #   name: Delete Self-Hosted Runner
+  #   needs: [create_runner, build]
+  #   if: ${{ always() && needs.create_runner.result != 'skipped' }}
+  #   runs-on: ubuntu-22.04
+  #   strategy:
+  #     matrix:
+  #       index: [1]
+  #     fail-fast: true
+  #   environment: dev
+  #   permissions:
+  #     contents: read
+  #     id-token: write
 
-    steps:
-      - name: Stop Github Runner
-        id: stop_runner
-        uses: pagopa/interop-github-runner-aws-cleanup-action@main
-        with:
-          aws_region: ${{ secrets.AWS_REGION }}
-          iam_role_arn: ${{ secrets.ECS_IAM_ROLE_ARN }}
-          ecs_cluster_name: ${{ secrets.ECS_CLUSTER_NAME }}
-          pat_token: ${{ secrets.BOT_TOKEN }}
+  #   steps:
+  #     - name: Stop Github Runner
+  #       id: stop_runner
+  #       uses: pagopa/interop-github-runner-aws-cleanup-action@main
+  #       with:
+  #         aws_region: ${{ secrets.AWS_REGION }}
+  #         iam_role_arn: ${{ secrets.ECS_IAM_ROLE_ARN }}
+  #         ecs_cluster_name: ${{ secrets.ECS_CLUSTER_NAME }}
+  #         pat_token: ${{ secrets.BOT_TOKEN }}
