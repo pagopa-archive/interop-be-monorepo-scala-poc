@@ -61,8 +61,7 @@ jobs:
 
       - name: List sbt
         run: | 
-          ls /actions-runner/.workdir/_tool/Java_Temurin-Hotspot_jdk/11.0.21-9/x64
-          find -f '/actions-runner/.workdir/_tool/Java_Temurin-Hotspot_jdk/11.0.21-9/x64' 'sbt'
+          ls -lR /actions-runner/.workdir/_tool/Java_Temurin-Hotspot_jdk/11.0.21-9/x64 | grep sbt
 
       - name: Cache sbt
         uses: actions/cache@v2
