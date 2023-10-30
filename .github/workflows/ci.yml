@@ -80,13 +80,13 @@ jobs:
             ~/Library/Caches/Coursier/v1
           key: ${{ runner.os }}-sbt-cache-v2-${{ hashFiles('**/*.sbt') }}-${{ hashFiles('project/build.properties') }}
 
-      # - name: Install node 16
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: 16
+      - name: Install node 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
 
-      # - name: Installing openapi-generator-cli
-      #   run: npm install -g @openapitools/openapi-generator-cli
+      - name: Installing openapi-generator-cli
+        run: npm install -g @openapitools/openapi-generator-cli
 
       - name: Generate code and Build
         run: sbt ++${{ matrix.scala }} generateCode test
