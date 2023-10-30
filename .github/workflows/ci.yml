@@ -59,6 +59,11 @@ jobs:
           distribution: temurin
           java-version: 11
 
+      - name: List sbt
+        run: | 
+          ls /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/11.0.20-1/x64
+          find -f '/opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/11.0.20-1/x64' 'sbt'
+
       - name: Cache sbt
         uses: actions/cache@v2
         with:
